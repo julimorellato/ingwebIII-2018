@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name = "edu.iua.calculator.model.Taxes" table = "taxes_details">
+
+        <meta attribute = "class-description">
+            This class contains the taxes percentages details.
+        </meta>
+
+        <id name = "id" type = "int" column = "id">
+            <generator class="native"/>
+        </id>
+
+        <property name = "taxName" column = "tax_name" type = "string"/>
+        <property name = "taxPercentage" column = "tax_percentage" type = "float"/>
+
+    </class>
+</hibernate-mapping>

@@ -43,7 +43,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>edu.iua.calculator.TaxesCalculator</mainClass>
+                            <mainClass>edu.iua.calculator.business.TaxesCalculator</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
