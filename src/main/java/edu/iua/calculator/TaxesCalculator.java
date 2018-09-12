@@ -23,6 +23,9 @@ public class TaxesCalculator
             float amount = Float.parseFloat(br.readLine());
             HashMap<String, Float> calculatedTax = calculate(amount);
 
+            JSONObject json = new JSONObject(calculatedTax);
+            System.out.println( "Created JSON: " + json.toString());
+
         } catch (IOException e) {
             System.out.println( "Sorry, an error has occurred. Please try again!" );
         } catch (NumberFormatException e) {
