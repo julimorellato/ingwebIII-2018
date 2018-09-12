@@ -1,5 +1,6 @@
 package edu.iua.calculator.business;
 
+import edu.iua.calculator.model.Billings;
 import edu.iua.calculator.model.Taxes;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -10,6 +11,7 @@ import org.hibernate.cfg.Configuration;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +42,12 @@ public class TaxesCalculator
 
             float amount = Float.parseFloat(br.readLine());
             HashMap<String, Float> calculatedTax = calculate(amount);
+
+
+            Integer createdBill = saveBill(amount);
+            if (createdBill != null ){
+                System.out.println( "Bill with id: " + createdBill + " has been created" );
+            }
 
         } catch (IOException e) {
             System.out.println( "Sorry, an error has occurred. Please try again!" );
@@ -97,5 +105,26 @@ public class TaxesCalculator
         }
         return taxesPercentage;
 
+    }
+
+    private static int saveBill(float amount){
+        Session session = factory.openSession();
+        Transaction tx = null;
+        Integer billId = null;
+
+        try {
+            tx = session.beginTransaction();
+            Billings bill = new Billings();
+            bill.setAmount(amount);
+            bill.setDate(new Date(new java.util.Date().getTime()));
+            billId = (Integer) session.save(bill);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return billId;
     }
 }
